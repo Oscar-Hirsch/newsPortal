@@ -8,7 +8,7 @@ backend/!.mvn/wrapper/maven-wrapper.jar
 backend/!**/src/main/**/target/
 backend/!**/src/test/**/target/
 backend/mvnw
-backend/.mvnw
+backend/.mvn
 backend/mvnw.cmd
 
 
