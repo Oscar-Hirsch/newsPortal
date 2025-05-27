@@ -2,10 +2,12 @@ package org.example.backend.service;
 
 import org.example.backend.repository.NewsRepository;
 import org.example.backend.type.ApiResponse;
-import org.example.backend.type.SafedSearches;
+import org.example.backend.type.NewsArticle;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+
+import java.util.List;
 
 @Service
 public class NewsService {
@@ -22,7 +24,7 @@ public class NewsService {
         this.newsRepository = newsRepository;
     }
 
-    public SafedSearches getNews(String query) {
+    public List<NewsArticle> getNews(String query) {
 
         ApiResponse response = restClient
                 .get()
@@ -32,8 +34,7 @@ public class NewsService {
                 .getBody();
         if (response != null) {
             if (!response.articles().isEmpty()) {
-                SafedSearches safedSearches = new SafedSearches(query, response.articles());
-                return newsRepository.save(safedSearches);
+                return newsRepository.saveAll(response.articles());
             }
         }
         return null;
