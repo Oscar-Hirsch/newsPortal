@@ -22,22 +22,24 @@ public class NewsService {
         this.newsRepository = newsRepository;
     }
 
-    public void getNews(String query) {
+    public SafedSearches getNews(String query) {
 
         ApiResponse response = restClient
                 .get()
-                .uri("everything?q={query}", query)
+                .uri("everything?q={query}&searchIn=title&language=de&sortBy=popularity", query)
                 .retrieve()
                 .toEntity(ApiResponse.class)
                 .getBody();
         if (response != null) {
             if (!response.articles().isEmpty()) {
                 SafedSearches safedSearches = new SafedSearches(query, response.articles());
-                newsRepository.save(safedSearches);
+                return newsRepository.save(safedSearches);
             }
-
         }
+        return null;
     }
+
+
 
 
 }
