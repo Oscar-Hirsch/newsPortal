@@ -1,6 +1,8 @@
 package org.example.backend.type;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
-public record SafedSearches(String searchName, List<NewsArticle> articles) {
+public record SafedSearches(@Id String searchName, List<NewsArticle> articles) {
 }
