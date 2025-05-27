@@ -8,7 +8,5 @@ public record NewsArticle(
         String title,
         String description,
         String url
-
-
 ) {
 }

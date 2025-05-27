@@ -1,8 +1,16 @@
-import { type ChangeEvent, useState } from "react";
+import {type ChangeEvent, useContext, useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router";
+import {SearchContext} from "../contexts/contexts.ts";
 
-export default function SearchBar() {
-    const [searchTerm, setSearchTerm] = useState<string>("");
+type SearchBarProps = {
+    updateCallBack: ()=>void
+}
+
+export default function SearchBar({updateCallBack}:SearchBarProps) {
+    const searchTerm = useContext(SearchContext)
+
+    const navigate = useNavigate()
 
     function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
         setSearchTerm(e.target.value);
@@ -11,9 +19,8 @@ export default function SearchBar() {
     function handleOnClick() {
         axios.get("/api/news/search", {
             params: { query: searchTerm }
-        }).then(response => {
-            console.log(response.data);
-        }).catch(error => {
+        }).then(updateCallBack).then(() => navigate(`/${searchTerm}`))
+            .catch(error => {
             console.error("Fehler beim Abrufen der Nachrichten:", error);
         });
     }
