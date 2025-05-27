@@ -1,20 +1,20 @@
 import Header from "../components/Header.tsx";
-import type {article} from "../components/type/article.tsx";
 import {useContext} from "react";
 import {SearchContext} from "../contexts/contexts.ts";
+import MainArticle from "../components/MainArticle.tsx";
+import type {article} from "../type/article.tsx";
 
 type ArticlePageProps = {
-    articles:article[]
+    allArticles:article[]
 }
-export default function ArticlePage({articles}:ArticlePageProps) {
-    const [searchTerm, setSearchTerm] = useContext(SearchContext)
+export default function ArticlePage({allArticles}:ArticlePageProps) {
+    const {searchString} = useContext(SearchContext)
+    const filteredArticles:article[] = allArticles.filter(article => article.title.toLowerCase().includes(searchString.toLowerCase()))
 
     return (
         <>
             <Header></Header>
-            {
-                articles.map(() => <p>{searchTerm}</p>)
-            }
+            <MainArticle articles={filteredArticles}></MainArticle>
 
         </>
     )

@@ -1,10 +1,9 @@
-import {createContext, useContext} from "react";
+import { createContext } from "react";
 
-export const SearchContext = createContext<string>()
-
-export function UseSearchContext() {
-    const [searchTerm, setSearchTerm] = useContext(SearchContext)
-    if (searchTerm === undefined) {
-        setSearchTerm("")
-    }
-}
+export const SearchContext = createContext<{
+    searchString: string;
+    setSearchString: (value: string) => void;
+}>({
+    searchString: "",
+    setSearchString: () => {},
+});

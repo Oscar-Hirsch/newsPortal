@@ -1,5 +1,5 @@
 type source = {
-    source:string
+    name:string
 }
 export type article = {
     source:source,
