@@ -8,7 +8,7 @@ export default function HomePage( {update}:HomePageProps) {
 
     return (
         <>
-            <Header></Header>
+            <Header update={update}></Header>
             <div className={"main-content"}>
                 <div className={"headline-section"}>
                     <h1 className={"main-logo"}>MediaSource</h1>

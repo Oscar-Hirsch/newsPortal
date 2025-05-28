@@ -19,7 +19,7 @@ export default function ArticlePage({allArticles, update}:ArticlePageProps) {
             <StatsSummaryCard articles={filteredArticles}></StatsSummaryCard>
             <div className={"article-cards-container"}>
             {
-                filteredArticles.map(article => <ArticleCard article={article}></ArticleCard>)
+                filteredArticles.map(article => <ArticleCard article={article} key={article._id}></ArticleCard>)
             }
             </div>
         </>
