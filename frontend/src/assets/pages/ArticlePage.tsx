@@ -15,7 +15,6 @@ export default function ArticlePage({allArticles}:ArticlePageProps) {
         <>
             <Header></Header>
             <MainArticle articles={filteredArticles}></MainArticle>
-
         </>
     )
 }
