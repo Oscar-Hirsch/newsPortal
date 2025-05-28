@@ -28,7 +28,7 @@ function App() {
   return (
     <Routes>
         <Route path={"/home"} element={<HomePage update={getAllArticles}/>}/>
-        <Route path={"/search"} element={<ArticlePage allArticles={articles}/>}/>
+        <Route path={"/search"} element={<ArticlePage allArticles={articles} update={getAllArticles}/>}/>
     </Routes>
   )
 }

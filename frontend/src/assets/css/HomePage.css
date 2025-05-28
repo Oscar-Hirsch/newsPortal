@@ -12,13 +12,13 @@
     justify-items: center;
 }
 
-.search-container {
+.home-search-container {
     max-width: 600px;
     display: flex;
     width: 100%;
 }
 
-.search-box {
+.home-search-box {
     display: flex;
     background: white;
     border-radius: 2rem;
@@ -28,12 +28,11 @@
     width: 100%;
 }
 
-.search-box:hover {
+.home-search-box:hover {
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-
-.search-input {
+.home-search-input {
     flex: 1;
     padding: 1.25rem 1.5rem;
     border: none;
@@ -42,11 +41,11 @@
     outline: none;
 }
 
-.search-input::placeholder {
+.home-search-input::placeholder {
     color: #94a3b8;
 }
 
-.search-btn {
+.home-search-btn {
     padding: 1.25rem 2rem;
     background: #3b82f6;
     color: white;
@@ -57,21 +56,74 @@
     transition: background 0.2s;
 }
 
-.search-btn:hover {
+.home-search-btn:hover {
     background: #2563eb;
 }
 
 @media (max-width: 768px) {
-    .search-container {
+    .home-search-container {
         padding: 0 1rem;
     }
 
-    .search-box {
+    .home-search-box {
         flex-direction: column;
         border-radius: 0.75rem;
     }
 
-    .search-btn {
+    .home-search-btn {
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+.header-search-container {
+}
+
+.header-search-box {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+    max-width: 400px;
+    margin: 0 2rem;
+}
+
+.header-search-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+}
+
+.header-search-input::placeholder {
+    color: #94a3b8;
+}
+
+.header-search-btn {
+    padding: 0.75rem 1.5rem;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+}
+
+.header-search-btn:hover {
+    background: #2563eb;
+}
+
+@media (max-width: 768px) {
+    .header-search-container {
+        padding: 0 1rem;
+    }
+
+    .header-search-box {
+        flex-direction: column;
+        border-radius: 0.75rem;
+    }
+
+    .header-search-btn {
         width: 100%;
         border-radius: 0;
     }

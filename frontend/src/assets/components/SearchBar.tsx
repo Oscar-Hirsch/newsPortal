@@ -26,17 +26,17 @@ export default function SearchBar({updateCallBack}:SearchBarProps) {
     }
 
     return (
-        <div className="search-container">
-            <div className="search-box">
+        <div className={`${window.location.pathname === "/home" ? "home-search-container": "header-search-container"}`}>
+            <div className={`${window.location.pathname === "/home" ? "home-search-box": "header-search-box"}`}>
                 <input
                     type="text"
-                    className="search-input"
+                    className={`${window.location.pathname === "/home" ? "home-search-input": "header-search-input"}`}
                     placeholder="Nachricht eingeben..."
                     value={searchString}
                     onChange={handleOnChange}
                     onKeyDown={(e) => e.key === "Enter" && handleOnClick()}
                 />
-                <button className="search-btn" onClick={handleOnClick}>
+                <button className={`${window.location.pathname === "/home" ? "home-search-btn": "header-search-btn"}`} onClick={handleOnClick}>
                     Suchen
                 </button>
             </div>
