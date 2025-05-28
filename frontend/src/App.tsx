@@ -1,6 +1,6 @@
 import './assets/css/App.css'
 import './assets/css/HomePage.css'
-import "./assets/css/MainArticle.css";
+import "./assets/css/ArticlePage.css";
 import HomePage from "./assets/pages/HomePage.tsx";
 import {Route, Routes} from "react-router-dom";
 import ArticlePage from "./assets/pages/ArticlePage.tsx";

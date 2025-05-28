@@ -1,26 +1,25 @@
-import {type ChangeEvent} from "react";
+import {type ChangeEvent, useState} from "react";
 import axios from "axios";
-import {useNavigate, useSearchParams} from "react-router";
+import {useNavigate} from "react-router";
 
 type SearchBarProps = {
     updateCallBack: ()=>void
 }
 
 export default function SearchBar({updateCallBack}:SearchBarProps) {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const query = searchParams.get("q") || "";
+    const [searchString, setSearchString] = useState("");
 
     const navigate = useNavigate()
 
     function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
-        setSearchParams({ q: e.target.value });
+        setSearchString(e.target.value);
     }
 
     function handleOnClick() {
         axios.get("/api/news/search", {
-            params: { q: query }}
+            params: { q: searchString }}
         ).then(updateCallBack)
-            .then(() => navigate(`/search?q=${query}`))
+            .then(() => navigate(`/search?q=${searchString}`))
             .catch(error => {
             console.error("Fehler beim Abrufen der News:", error);
         });
@@ -33,7 +32,7 @@ export default function SearchBar({updateCallBack}:SearchBarProps) {
                     type="text"
                     className="search-input"
                     placeholder="Nachricht eingeben..."
-                    value={query}
+                    value={searchString}
                     onChange={handleOnChange}
                     onKeyDown={(e) => e.key === "Enter" && handleOnClick()}
                 />

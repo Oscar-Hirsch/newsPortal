@@ -6,7 +6,7 @@ import {useSearchParams} from "react-router";
 type MainArticleProps = {
     articles:article[]
 }
-export default function MainArticle({articles}:MainArticleProps) {
+export default function StatsSummaryCard({articles}:MainArticleProps) {
 
     const [searchParams] = useSearchParams();
     const query = searchParams.get("q");
