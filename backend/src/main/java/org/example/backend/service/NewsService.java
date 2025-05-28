@@ -32,6 +32,7 @@ public class NewsService {
                 .retrieve()
                 .toEntity(ApiResponse.class)
                 .getBody();
+
         if (response != null) {
             if (!response.articles().isEmpty()) {
                 return newsRepository.saveAll(response.articles());

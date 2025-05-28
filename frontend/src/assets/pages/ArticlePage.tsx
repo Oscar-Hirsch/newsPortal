@@ -1,15 +1,15 @@
 import Header from "../components/Header.tsx";
-import {useContext} from "react";
-import {SearchContext} from "../contexts/contexts.ts";
 import MainArticle from "../components/MainArticle.tsx";
 import type {article} from "../type/article.tsx";
+import {useSearchParams} from "react-router";
 
 type ArticlePageProps = {
     allArticles:article[]
 }
 export default function ArticlePage({allArticles}:ArticlePageProps) {
-    const {searchString} = useContext(SearchContext)
-    const filteredArticles:article[] = allArticles.filter(article => article.title.toLowerCase().includes(searchString.toLowerCase()))
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get("q") || "";
+    const filteredArticles:article[] = allArticles.filter(article => article.title.toLowerCase().includes(query.toLowerCase()))
 
     return (
         <>

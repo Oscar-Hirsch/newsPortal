@@ -20,9 +20,10 @@ public class NewsController {
     }
 
     @GetMapping("/search")
-    public List<NewsArticle> search(@RequestParam String query) {
-         return newsService.getNews(query);
+    public List<NewsArticle> search(@RequestParam String q) {
+        return newsService.getNews(q);
     }
+
 
 
 }
