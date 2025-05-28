@@ -1,7 +1,8 @@
 import Header from "../components/Header.tsx";
-import MainArticle from "../components/MainArticle.tsx";
+import StatsSummaryCard from "../components/StatsSummaryCard.tsx";
 import type {article} from "../type/article.tsx";
 import {useSearchParams} from "react-router";
+import ArticleCard from "../components/ArticleCard.tsx";
 
 type ArticlePageProps = {
     allArticles:article[]
@@ -14,8 +15,12 @@ export default function ArticlePage({allArticles}:ArticlePageProps) {
     return (
         <>
             <Header></Header>
-            <MainArticle articles={filteredArticles}></MainArticle>
-
+            <StatsSummaryCard articles={filteredArticles}></StatsSummaryCard>
+            <div className={"article-cards-container"}>
+            {
+                filteredArticles.map(article => <ArticleCard article={article}></ArticleCard>)
+            }
+            </div>
         </>
     )
 }
