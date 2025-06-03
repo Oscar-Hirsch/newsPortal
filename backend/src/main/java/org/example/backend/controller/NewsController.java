@@ -24,6 +24,11 @@ public class NewsController {
         return newsService.getNews(q);
     }
 
+    @GetMapping("/{id}")
+    public NewsArticle getNewsArticle(@PathVariable String id) {
+        return databaseService.getNewsArticleById(id);
+    }
+
 
 
 }

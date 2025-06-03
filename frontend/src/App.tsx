@@ -7,6 +7,7 @@ import ArticlePage from "./assets/pages/ArticlePage.tsx";
 import {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import type {article} from "./assets/type/article.tsx";
+import DetailPage from "./assets/pages/DetailPage.tsx";
 
 function App() {
     const [articles, setArticles] = useState<article[]>([])
@@ -29,6 +30,7 @@ function App() {
     <Routes>
         <Route path={"/home"} element={<HomePage update={getAllArticles}/>}/>
         <Route path={"/search"} element={<ArticlePage allArticles={articles} update={getAllArticles}/>}/>
+        <Route path={"/:id"} element={<DetailPage update={getAllArticles}/>}/>
     </Routes>
   )
 }

@@ -15,4 +15,8 @@ public class DatabaseService {
     public List<NewsArticle> getAllNews() {
         return newsRepository.findAll();
     }
+
+    public NewsArticle getNewsArticleById(String id) {
+        return newsRepository.findById(id).orElse(null);
+    }
 }
