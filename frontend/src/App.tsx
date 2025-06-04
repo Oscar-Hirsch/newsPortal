@@ -1,5 +1,4 @@
 import './assets/css/App.css'
-import './assets/css/HomePage.css'
 import "./assets/css/ArticlePage.css";
 import HomePage from "./assets/pages/HomePage.tsx";
 import {Route, Routes} from "react-router-dom";
@@ -11,6 +10,7 @@ import DetailPage from "./assets/pages/DetailPage.tsx";
 
 function App() {
     const [articles, setArticles] = useState<article[]>([])
+    const items:string[] = ["Die Zeit", "DPA", "Die Bild"]
 
     const getAllArticles = useCallback(() => {
         axios
@@ -28,7 +28,7 @@ function App() {
 
   return (
     <Routes>
-        <Route path={"/home"} element={<HomePage update={getAllArticles}/>}/>
+        <Route path={"/home"} element={<HomePage update={getAllArticles} items={items}/>}/>
         <Route path={"/search"} element={<ArticlePage allArticles={articles} update={getAllArticles}/>}/>
         <Route path={"/:id"} element={<DetailPage update={getAllArticles}/>}/>
     </Routes>
