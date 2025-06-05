@@ -4,10 +4,7 @@ import {useEffect, useState} from "react";
 import type {article} from "../type/article.tsx";
 import Header from "../components/Header.tsx";
 
-type DetailPageProps = {
-    update: () => void
-}
-export default function DetailPage({update}:DetailPageProps) {
+export default function DetailPage() {
     const {id} = useParams();
     const [currentArticle, setCurrentArticle] = useState<article>({
         id: "",
@@ -31,7 +28,7 @@ export default function DetailPage({update}:DetailPageProps) {
 
     return (
         <>
-            <Header update={update}/>
+            <Header/>
             <div>
                 <div>
                     <h1>{currentArticle.title}</h1>
