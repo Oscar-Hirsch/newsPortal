@@ -21,7 +21,7 @@ export default function Dropdown({items, isDropdownOpen, setIsDropdownOpen, setC
     };
 
     return (
-        <div className="relative items-center">
+        <div className="relative items-center w-full">
             <label className="text-gray-600" >Land wählen:</label>
 
             <button
