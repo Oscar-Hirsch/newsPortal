@@ -8,7 +8,7 @@ export default function ArticleCard({article}:ArticleCardProps) {
     const navigate = useNavigate()
 
     return (
-        <div className="bg-white flex flex-col rounded-xl p-6 shadow transition-shadow duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1" onClick={()=>navigate(`/${article.id}`)}>
+        <div className="bg-white flex flex-col rounded-xl p-10 shadow transition-shadow duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1" onClick={()=>navigate(`/${article.id}`)}>
             <div className="flex justify-between items-center mb-4">
                 <div className="font-semibold text-[1.1rem]">{article.source.name}</div>
             </div>

@@ -18,9 +18,9 @@ export default function StatsSummaryCard({articles}:MainArticleProps) {
 
 
     return (
-        <div className={"main-article"}>
-            <h1 className={"main-article-title"}>{query}</h1>
-            <div className={"summary-pill-container"}>
+        <div className={"p-8 bg-white rounded-xl shadow my-8 w-[1200px] max-w-[1200px] justify-self-center"}>
+            <h1 className={"text-[1.75rem] font-semibold mb-4 text-slate-800"}>{query}</h1>
+            <div className={"flex gap-8"}>
                 <SummaryPill number={numberOfSources} description={"Quellen"}/>
                 <SummaryPill number={numberOfArticles} description={"Articles"}/>
             </div>
