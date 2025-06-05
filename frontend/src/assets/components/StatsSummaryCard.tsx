@@ -23,7 +23,6 @@ export default function StatsSummaryCard({articles}:MainArticleProps) {
             <div className={"summary-pill-container"}>
                 <SummaryPill number={numberOfSources} description={"Quellen"}/>
                 <SummaryPill number={numberOfArticles} description={"Articles"}/>
-                <SummaryPill number={0} description={"Tage Berichterstattung"}/>
             </div>
         </div>
     )

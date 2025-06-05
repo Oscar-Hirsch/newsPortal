@@ -4,30 +4,32 @@ type DropDownProps = {
     items:string[]
     isDropdownOpen:boolean
     setIsDropdownOpen:(boolean:boolean)=>void
+    setCountry:(item:string)=>void
 
 }
-export default function Dropdown({items, isDropdownOpen, setIsDropdownOpen}:DropDownProps) {
-    const [selectedSource, setSelectedSource] = useState<string>("Quelle wählen...")
+export default function Dropdown({items, isDropdownOpen, setIsDropdownOpen, setCountry}:DropDownProps) {
+    const [selectedCountry, setSelectedCountry] = useState<string>("Land wählen...")
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
     const handleItemSelect = (item: string) => {
-        setSelectedSource(item);
+        setCountry(item)
+        setSelectedCountry(item);
         setIsDropdownOpen(false);
     };
 
     return (
         <div className="relative items-center">
-            <label className="block text-gray-600 text-base font-medium mb-3 text-center">Nachrichtenquelle wählen:</label>
+            <label className="text-gray-600" >Land wählen:</label>
 
             <button
                 onClick={toggleDropdown}
-                className="w-full px-6 py-3 flex items-center justify-between rounded-full border border-gray-300 bg-white text-gray-700 text-base cursor-pointer relative transition-all duration-200 ease-in-out hover:shadow-lg hover:border-blue-400 focus:border-blue-500 focus:shadow-lg focus:outline-none shadow-md min-h-[48px]"
+                className="w-full flex items-center justify-between rounded-full border border-gray-300 bg-white text-gray-700 text-base cursor-pointer relative transition-all duration-200 ease-in-out hover:shadow-lg hover:border-blue-400 focus:border-blue-500 focus:shadow-lg focus:outline-none shadow-md min-h-[48px]"
             >
                <span className="flex-1">
-                   {selectedSource}
+                   {selectedCountry}
                </span>
                 <span className={`transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}>
                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
