@@ -20,7 +20,7 @@ export default function ArticlePage() {
         <>
             <Header></Header>
             <StatsSummaryCard articles={articles}></StatsSummaryCard>
-            <div className={"article-cards-container"}>
+            <div className={"justify-self-center w-[1200px] grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8"}>
             {
                 articles.map(article => <ArticleCard article={article} key={article.id}></ArticleCard>)
             }
