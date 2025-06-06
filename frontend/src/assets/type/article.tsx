@@ -7,6 +7,8 @@ export type article = {
     author:string,
     title:string,
     description:string,
+    summary:string,
+    content:string,
     url:string,
     publishedAt:string,
     urlToImage:string

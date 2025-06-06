@@ -6,6 +6,8 @@ public record NewsArticle(
         String author,
         String title,
         String description,
+        String summary,
+        String content,
         String publishedAt,
         String url,
         String urlToImage

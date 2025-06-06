@@ -1,7 +1,10 @@
 package org.example.backend.controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.service.DatabaseService;
 import org.example.backend.service.NewsService;
+import org.example.backend.service.OpenAIService;
+import org.example.backend.type.FakeNewsArticle;
 import org.example.backend.type.NewsArticle;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,7 @@ import java.util.List;
 public class NewsController {
     private final NewsService newsService;
     private final DatabaseService databaseService;
+    private final OpenAIService openAIService;
 
     @GetMapping
     public List<NewsArticle> getAllNews() {
@@ -29,6 +33,13 @@ public class NewsController {
         return databaseService.getNewsArticleById(id);
     }
 
+    @PostMapping("/save")
+    public NewsArticle saveNewsArticle(@RequestBody NewsArticle newsArticle) {
+        return databaseService.saveNewsArticle(newsArticle);
+    }
 
-
+    @PostMapping("/createFakeNews")
+    public FakeNewsArticle createFakeNewsArticle(@RequestBody String title) throws JsonProcessingException {
+        return openAIService.createFakeNews(title);
+    }
 }

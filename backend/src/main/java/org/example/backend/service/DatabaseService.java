@@ -19,4 +19,8 @@ public class DatabaseService {
     public NewsArticle getNewsArticleById(String id) {
         return newsRepository.findById(id).orElse(null);
     }
+
+    public NewsArticle saveNewsArticle(NewsArticle newsArticle) {
+        return newsRepository.save(newsArticle);
+    }
 }
