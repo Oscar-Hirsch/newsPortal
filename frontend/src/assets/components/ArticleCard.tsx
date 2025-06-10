@@ -1,14 +1,18 @@
 import type {article} from "../type/article.tsx";
 import {useNavigate} from "react-router";
 import axios from "axios";
+import {type CSSProperties, useState} from "react";
+import {HashLoader} from "react-spinners";
 
 type ArticleCardProps = {
     article:article
 }
 export default function ArticleCard({article}:ArticleCardProps) {
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     function handleOnClick() {
+        setLoading(true)
         axios.post("/api/news/createFakeNews", {title: article.title}).then(
             response =>
             {
@@ -17,11 +21,33 @@ export default function ArticleCard({article}:ArticleCardProps) {
                     content: response.data.content
                 }
                 return axios.post("/api/news/save", {...fakeArticle})
-            }).then(saveResponse => navigate(`/${saveResponse.data.id}`))
+            }).then(saveResponse => {
+                navigate(`/${saveResponse.data.id}`)
+            })
             .catch(error => console.log(error))
+            .finally(() => setLoading(false))
     }
+    const override: CSSProperties = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "#3b82f6",
+    };
 
-    return (
+    return ( loading ?
+            <>
+                <div className="fixed inset-0 bg-black opacity-75 z-40"></div>
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                <HashLoader
+                    color={"#3b82f6"}
+                    loading={loading}
+                    cssOverride={override}
+                    size={150}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+                </div>
+            </>
+            :
         <div className="relative group bg-white flex flex-col rounded-xl p-10 shadow transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1">
             <div className="flex justify-between items-center mb-4">
                 <div className="font-semibold text-[1.1rem]">{article.source.name}</div>
