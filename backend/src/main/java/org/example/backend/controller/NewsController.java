@@ -38,6 +38,11 @@ public class NewsController {
         return databaseService.saveNewsArticle(newsArticle);
     }
 
+    @DeleteMapping("/delete")
+    public void deleteNewsArticle(@RequestParam String id) {
+        databaseService.deleteNewsArticle(id);
+    }
+
     @PostMapping("/createFakeNews")
     public FakeNewsArticle createFakeNewsArticle(@RequestBody String title) throws JsonProcessingException {
         return openAIService.createFakeNews(title);
