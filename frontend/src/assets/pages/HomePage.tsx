@@ -25,7 +25,7 @@ export default function HomePage( {items}:HomePageProps) {
                 </div>
                 <div className={"grid grid-cols-3 gap-4"}>
                 {
-                    categories.map(category => SearchCard({category, country}))
+                    categories.map(category => <SearchCard category={category} country={country} key={categories.indexOf(category)}></SearchCard>)
                 }
                 </div>
 

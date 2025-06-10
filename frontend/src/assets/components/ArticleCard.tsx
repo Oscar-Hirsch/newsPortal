@@ -3,13 +3,26 @@ import {useNavigate} from "react-router";
 import axios from "axios";
 import {type CSSProperties, useState} from "react";
 import {HashLoader} from "react-spinners";
+import OverlayButton from "./OverlayButton.tsx";
+import DeleteButton from "./DeleteButton.tsx";
 
 type ArticleCardProps = {
     article:article
+    setArticles?:((articles:article[]) => void)
 }
-export default function ArticleCard({article}:ArticleCardProps) {
+export default function ArticleCard({article, setArticles}:ArticleCardProps) {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
+
+    function handleDelete() {
+        axios.delete(`/api/news/delete`,
+            {
+                params: { id: article.id}}).then(response => console.log(response.data + "article deleted: " +  article.id))
+            .catch(error => console.log(error))
+        if(setArticles){
+            axios.get("/api/news").then(response => setArticles(response.data))
+        }
+    }
 
     function handleOnClick() {
         setLoading(true)
@@ -33,7 +46,7 @@ export default function ArticleCard({article}:ArticleCardProps) {
         borderColor: "#3b82f6",
     };
 
-    return ( loading ?
+    return (loading ?
             <>
                 <div className="fixed inset-0 bg-black opacity-75 z-40"></div>
                 <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -63,16 +76,16 @@ export default function ArticleCard({article}:ArticleCardProps) {
             <div className="flex justify-between items-center text-sm text-gray-500 mt-auto">
                 <span>{article.publishedAt}</span>
             </div>
-            <div className="absolute inset-0 bg-black bg-opacity-20 rounded-xl opacity-0 group-hover:opacity-30 transition-opacity duration-200 ease-in-out pointer-events-none"></div>
+            {
+                window.location.pathname.includes("/collection") ?
+                    <>
+                    <OverlayButton onClick={()=>navigate(`/${article.id}`)} name={"Artikel ansehen"}></OverlayButton>
+                    <DeleteButton handleOnClick={handleDelete}></DeleteButton>
+                    </>
+                    :
+                    <OverlayButton onClick={handleOnClick} name={"FakeNews erstellen"}></OverlayButton>
+            }
 
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out pointer-events-none group-hover:pointer-events-auto">
-                <button
-                    onClick={handleOnClick}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transform scale-95 group-hover:scale-100 transition-transform duration-200 ease-in-out shadow-lg cursor-pointer"
-                >
-                    FakeNews erstellen
-                </button>
-            </div>
 
         </div>
     )

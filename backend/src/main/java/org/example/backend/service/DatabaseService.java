@@ -23,4 +23,8 @@ public class DatabaseService {
     public NewsArticle saveNewsArticle(NewsArticle newsArticle) {
         return newsRepository.save(newsArticle);
     }
+
+    public void deleteNewsArticle(String id) {
+        newsRepository.deleteById(id);
+    }
 }
