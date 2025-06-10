@@ -25,6 +25,8 @@ export default function DetailPage() {
         axios.get(`api/news/${id}`).then(response => setCurrentArticle(response.data))
     }, [id]);
 
+
+
     return (
         <>
             <Header/>
