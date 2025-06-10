@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {type CSSProperties, useEffect, useState} from "react";
 import type {article} from "../type/article.tsx";
 import Header from "../components/Header.tsx";
+import {ClipLoader, GridLoader, PacmanLoader, RingLoader} from "react-spinners";
 
 export default function DetailPage() {
     const {id} = useParams();
@@ -25,9 +26,25 @@ export default function DetailPage() {
         axios.get(`api/news/${id}`).then(response => setCurrentArticle(response.data))
     }, [id]);
 
+    const override: CSSProperties = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "#3b82f6",
+    };
+    const [loading, setLoading] = useState(true);
+    const [color, setColor] = useState("#ffffff");
+
     return (
         <>
             <Header/>
+            <RingLoader
+                color={"#3b82f6"}
+                loading={loading}
+                cssOverride={override}
+                size={200}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+            />
             <div className="flex flex-col gap-4 bg-white p-6 mt-3 rounded-xl max-w-[1200px] mx-auto shadow-[0_2px_5px_1px_rgba(64,60,67,0.16)]">
                 <div className="border-b border-slate-200 pb-6">
                     <h1 className={"text-[2.5rem] font-bold mb-4 text-slate-800 leading-[1.2]"}>{currentArticle.title}</h1>
