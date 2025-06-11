@@ -5,6 +5,7 @@ import {type CSSProperties, useState} from "react";
 import {HashLoader} from "react-spinners";
 import OverlayButton from "./OverlayButton.tsx";
 import DeleteButton from "./DeleteButton.tsx";
+import TimeStamp from "./TimeStamp.tsx";
 
 type ArticleCardProps = {
     article:article
@@ -17,7 +18,7 @@ export default function ArticleCard({article, setArticles}:ArticleCardProps) {
     function handleDelete() {
         axios.delete(`/api/news/delete`,
             {
-                params: { id: article.id}}).then(response => console.log(response.data + "article deleted: " +  article.id))
+                params: { id: article.id}})
             .catch(error => console.log(error))
         if(setArticles){
             axios.get("/api/news").then(response => setArticles(response.data))
@@ -68,13 +69,13 @@ export default function ArticleCard({article, setArticles}:ArticleCardProps) {
             <div className="line-clamp-2 text-[1rem] font-semibold mb-4 text-slate-800">{article.title}</div>
             <div className="w-full h-48 overflow-hidden rounded-t-lg">
                 <img
-                    src={article.urlToImage}
+                    src={(article.urlToImage) ? article.urlToImage : "src/assets/images/ChatGPT Image 11. Juni 2025, 12_17_22.png"}
                     alt={article.title}
                     className="w-full h-full object-cover"
                 />
             </div>
-            <div className="flex justify-between items-center text-sm text-gray-500 mt-auto">
-                <span>{article.publishedAt}</span>
+            <div className="flex justify-between items-center text-sm text-gray-500 mt-2">
+                <TimeStamp article={article}></TimeStamp>
             </div>
             {
                 window.location.pathname.includes("/collection") ?

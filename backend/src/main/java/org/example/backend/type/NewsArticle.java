@@ -1,5 +1,7 @@
 package org.example.backend.type;
 
+import java.util.UUID;
+
 public record NewsArticle(
         String id,
         Source source,
@@ -12,4 +14,9 @@ public record NewsArticle(
         String url,
         String urlToImage
 ) {
+    public NewsArticle {
+        if (id == null || id.isBlank()) {
+            id = UUID.randomUUID().toString();
+        }
+    }
 }
