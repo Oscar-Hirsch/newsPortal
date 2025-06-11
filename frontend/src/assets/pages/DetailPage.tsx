@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import type {article} from "../type/article.tsx";
 import Header from "../components/Header.tsx";
+import TimeStamp from "../components/TimeStamp.tsx";
 
 export default function DetailPage() {
     const {id} = useParams();
@@ -18,12 +19,19 @@ export default function DetailPage() {
         content:"",
         publishedAt:"",
         url: "",
-        urlToImage: ""
+        urlToImage: "src/assets/images/placeholder.png"
     })
 
     useEffect(() => {
         axios.get(`api/news/${id}`).then(response => setCurrentArticle(response.data))
     }, [id]);
+
+    function splitArticle(article:string) {
+        const splitted_article = article.split("(linebreak)");
+        return splitted_article
+            .map(text => text.replace("(linebreak)", ""))
+            .filter(text => text !== "")
+    }
 
 
 
@@ -38,13 +46,15 @@ export default function DetailPage() {
                     </div>
                     <div className="flex flex-col">
                         <p className={"text-sm text-[#6b7280]"}>By {currentArticle.author}</p>
-                        <p className={"text-sm text-[#6b7280]"}>{currentArticle.publishedAt}</p>
+                        <TimeStamp article={currentArticle} className={"text-sm text-[#6b7280]"}></TimeStamp>
                     </div>
                     <img className={"mt-6 object-cover object-center w-9/12 rounded-xl"} src={currentArticle.urlToImage} alt={currentArticle.title}/>
                 </div>
                 <div className="flex flex-col w-[1000px] items-start justify-center">
                     <p className={"text-lg text-gray-600 leading-[1.7] mb-8 p-6 bg-slate-50 rounded-lg border-l-4 border-l-blue-500 w-full"}>{currentArticle.summary}</p>
-                    <p>{currentArticle.content}</p>
+                    {
+                        (splitArticle(currentArticle.content).map(text => <p className={"mt-2"} key={currentArticle.content.split("(linebreak)").indexOf(text)}>{text}</p>))
+                    }
                 </div>
             </div>
 

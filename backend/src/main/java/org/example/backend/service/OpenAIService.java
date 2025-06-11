@@ -37,6 +37,7 @@ public class OpenAIService {
                 1. Write a funny fake‐news article of approximately 400 words based on that headline.
                 2. Then write a brief summary (2–3 sentences) of your fake news story.
                 3. Write both in the language that the headline is in.
+                4. Think where to insert line breaks into the text and indicate where you would put them by just writing (linebreak)
                 
                 Return only valid JSON with exactly two keys:
                 {
