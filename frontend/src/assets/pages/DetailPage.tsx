@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import type {article} from "../type/article.tsx";
@@ -19,7 +19,7 @@ export default function DetailPage() {
         content:"",
         publishedAt:"",
         url: "",
-        urlToImage: "src/assets/images/ChatGPT Image 11. Juni 2025, 12_17_22.png"
+        urlToImage: "src/assets/images/placeholder.png"
     })
 
     useEffect(() => {
@@ -28,10 +28,9 @@ export default function DetailPage() {
 
     function splitArticle(article:string) {
         const splitted_article = article.split("(linebreak)");
-        const finalStructure = splitted_article
+        return splitted_article
             .map(text => text.replace("(linebreak)", ""))
             .filter(text => text !== "")
-        return finalStructure
     }
 
 

@@ -69,7 +69,7 @@ export default function ArticleCard({article, setArticles}:ArticleCardProps) {
             <div className="line-clamp-2 text-[1rem] font-semibold mb-4 text-slate-800">{article.title}</div>
             <div className="w-full h-48 overflow-hidden rounded-t-lg">
                 <img
-                    src={(article.urlToImage) ? article.urlToImage : "src/assets/images/ChatGPT Image 11. Juni 2025, 12_17_22.png"}
+                    src={(article.urlToImage) ? article.urlToImage : "src/assets/images/placeholder.png"}
                     alt={article.title}
                     className="w-full h-full object-cover"
                 />
