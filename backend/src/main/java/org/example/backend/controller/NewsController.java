@@ -3,7 +3,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.service.DatabaseService;
 import org.example.backend.service.NewsService;
-import org.example.backend.service.OpenAIService;
+import org.example.backend.service.MistralAIService;
 import org.example.backend.type.FakeNewsArticle;
 import org.example.backend.type.NewsArticle;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 public class NewsController {
     private final NewsService newsService;
     private final DatabaseService databaseService;
-    private final OpenAIService openAIService;
+    private final MistralAIService openAIService;
 
     @GetMapping
     public List<NewsArticle> getAllNews() {
