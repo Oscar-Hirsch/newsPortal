@@ -10,7 +10,7 @@ export default function Collection() {
 
     useEffect(() => {
         axios.get("/api/news").then(response => setArticles(response.data))
-    }, [articles])
+    }, [])
 
     return (
         <>

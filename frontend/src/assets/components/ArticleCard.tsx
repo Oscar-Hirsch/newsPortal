@@ -15,8 +15,8 @@ export default function ArticleCard({article, setArticles}:ArticleCardProps) {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
 
-    function handleDelete() {
-        axios.delete(`/api/news/delete`,
+    async function handleDelete() {
+        await axios.delete(`/api/news/delete`,
             {
                 params: { id: article.id}})
             .catch(error => console.log(error))
