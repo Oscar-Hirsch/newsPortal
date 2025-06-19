@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 
 import org.example.backend.type.FakeNewsArticle;
-import org.example.backend.type.MessageToOpenAI;
-import org.example.backend.type.OpenAIResponse;
-import org.example.backend.type.RequestToOpenAI;
+import org.example.backend.type.MessageToMistralAI;
+import org.example.backend.type.MistralAIResponse;
+import org.example.backend.type.RequestToMistralAI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class OpenAIService {
+public class MistralAIService {
 
     private final RestClient restClient;
 
-    public OpenAIService(RestClient.Builder restClientBuilder, @Value("${OpenAI_AuthKey}") String authentication) {
+    public MistralAIService(RestClient.Builder restClientBuilder, @Value("${OpenAI_AuthKey}") String authentication) {
 
         this.restClient = restClientBuilder
-                .baseUrl("https://api.openai.com/v1/")
+                .baseUrl("https://api.mistral.ai/v1/")
                 .defaultHeader("Authorization", "Bearer " + authentication)
                 .build();
     }
@@ -39,29 +39,30 @@ public class OpenAIService {
                 3. Write both in the language that the headline is in.
                 4. Think where to insert line breaks into the text and indicate where you would put them by just writing (linebreak)
                 
-                Return only valid JSON with exactly two keys:
+                Respond only with **only** a JSON object with these two keys and nothing else. Do **not** include any markdown fences, code boxes, or extra text—just the JSON:
                 {
                   "summary": "Your 2–3 sentence summary here.",
                   "content": "Your ~400‐word humorous fake news story here."
                 }
                 """.formatted(headline);
-        MessageToOpenAI messageToOpenAI = new MessageToOpenAI("user", prompt);
-        RequestToOpenAI finalizedRequest = new RequestToOpenAI("gpt-4.1", List.of(messageToOpenAI));
+        MessageToMistralAI messageToMistralAI = new MessageToMistralAI("user", prompt);
+        RequestToMistralAI finalizedRequest = new RequestToMistralAI("mistral-small-latest", List.of(messageToMistralAI));
 
-        String chatGPTAIOutput = Objects.requireNonNull(restClient.post()
+        String mistralAIOutput = Objects.requireNonNull(restClient.post()
                         .uri("chat/completions")
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(finalizedRequest)
                         .retrieve()
-                        .body(OpenAIResponse.class))
+                        .body(MistralAIResponse.class))
                 .choices()
                 .getFirst()
                 .message()
-                .content();
+                .content()
+                .replace("```json","").replace("```","");
 
-        if (chatGPTAIOutput != null) {
+        if (!mistralAIOutput.isEmpty()) {
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode rootNode = mapper.readTree(chatGPTAIOutput);
+            JsonNode rootNode = mapper.readTree(mistralAIOutput);
             String summary = rootNode.get("summary").asText();
             String content = rootNode.get("content").asText();
             return new FakeNewsArticle(summary, content);
